@@ -8,13 +8,32 @@ class Wheel:
         self.sections.append(name)
 
     def spin(self):
+        if not self.sections:
+            return None
+        
         return random.choice(self.sections)
     
 wheel = Wheel()
 
-wheel.add_section("Mario")
-wheel.add_section("Luigi")
-wheel.add_section("Wario")
-wheel.add_section("Waluigi")
+while True:
+    name = input("Please input a new result, or enter 'done' to finish: ").strip()
+    if name.lower() == "done":
+        break
 
-print(wheel.spin())
+    if name == "":
+        print("Input cannot be empty.")
+        continue
+    wheel.add_section(name)
+
+result = wheel.spin()
+
+if result is None:
+    print("The wheel is empty!")
+else:
+    print("-Current Wheel-")
+
+    for item in wheel.sections:
+        print(item)
+
+    print("Spinning...")
+    print("Winner:", result)
