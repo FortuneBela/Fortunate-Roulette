@@ -7,6 +7,12 @@ class Wheel:
     def add_section(self, name):
         self.sections.append(name)
 
+    def remove_section(self, index):
+        return self.sections.pop(index)
+    
+    def is_empty(self):
+        return len(self.sections) == 0
+
     def spin(self):
         if not self.sections:
             return None
@@ -15,7 +21,7 @@ class Wheel:
     
     def display(self, numbered=False):
         if numbered:
-            for index, item in enumerate(wheel.sections, start=1):
+            for index, item in enumerate(self.sections, start=1):
                 print(f"{index}. {item}")
         else:
             for item in self.sections:
@@ -44,24 +50,26 @@ while True:
             print(f"Added '{name}'")    
     
     elif choice == "2":
-        if not wheel.sections:
+        if wheel.is_empty:
             print("The Roulette is currently empty.")
         else:
             print("~Your Current Roulette~")
             wheel.display(numbered=True)
             choice = input("\nPlease input section to remove: ").strip()
-            choice = int(choice)
-            index = choice - 1
-
-            if index < 0 or index >= len(wheel.sections):
-                print("Invalid input")
+            if not choice.isdigit():
+                print("Please enter a number instead.")
             else:
-                removed_item = wheel.sections[index]
-                wheel.sections.pop(index)
-                print(f"'{removed_item}' has been removed.")
+                choice = int(choice)
+                index = choice - 1
+
+                if index < 0 or index >= len(wheel.sections):
+                    print("Invalid Input")
+                else:
+                    removed_item = wheel.remove_section(index)
+                    print(f"'{removed_item}' has been removed.")
 
     elif choice == "3":
-        if not wheel.sections:
+        if wheel.is_empty:
             print("The Roulette is currently empty.")
         else:
             print("~Your Current Roulette~")
@@ -81,6 +89,7 @@ while True:
             print("Winner:", result)    
 
     elif choice == "5":
+        print("Thank you for using Fortunate Roulette!")
         break
 
     else:
