@@ -1,8 +1,12 @@
-import os
 
+from pathlib import Path
 from wheel import Wheel
-    
+
 wheel = Wheel()
+
+curr_folder = Path.cwd()
+child_folder = curr_folder / "Saved Roulettes"
+child_folder.mkdir(exist_ok=True)
 
 while True:
 
@@ -11,11 +15,10 @@ while True:
     print("2. Remove Section")
     print("3. View Current Roulette")
     print("4. Spin Roulette")
-    print("5. Save Current Roulette")
-    print("6. Load Saved Roulette")
-    print("7. Exit")
+    print("5. Save/Load Roulette")
+    print("6. Exit")
 
-    choice = input("Make your selection: ").strip()
+    choice = input("Choose An Option: ").strip()
 
     if choice == "1":
         name = input("Please input a new Section: ").strip()
@@ -66,23 +69,57 @@ while True:
             print("Winner:", result)    
 
     elif choice == "5":
-        name = input("Please enter the name you wish to save the file as: ").strip()
-        filename = f"{name}.json"
-        wheel.save(filename)
+        print("\n-=Data Management=-")
+        print("1. Save Current Roulette")
+        print("2. Load A Saved Roulette")
+        print("3. Return To Main Menu")
+        sl_choice = input("\nChoose an option. ").strip()
+
+        if sl_choice == "1":
+            name = input("Please enter the name you wish to save the file as: ").strip()
+            
+            if not name:
+                print("Save name cannot be empty!")
+            else:
+                filename = child_folder / f"{name}.json"
+                wheel.save(filename)
+                print(f"{name} saved!")
+
+        elif sl_choice == "2":
+            print("-Saved Roulettes-\n")
+
+            saved_roulettes = sorted(child_folder.glob("*.json"))
+
+            if not saved_roulettes:
+                print("No saved roulettes found.")
+            else:
+                for index, file in enumerate(saved_roulettes, start=1):
+                    print(f"{index}. {file.stem}")
+
+                load_choice = input("\nPlease choose the number of which roulette to load: ").strip()
+            
+                if not load_choice.isdigit():
+                    print("Please enter a number instead.")
+                else:
+                    load_choice = int(load_choice)
+                    index = load_choice - 1
+            
+                    if index < 0 or index >= len(saved_roulettes):
+                        print("Invalid Input")
+                    else:
+                        filename = saved_roulettes[index]
+                        wheel.load(filename)
+                        print(f"{filename.stem} Loaded!")
+ 
+        elif sl_choice == "3":
+            print("Returning To Main Menu...")
+
+        else:   
+            print("Invalid Option")
 
     elif choice == "6":
-        name = input("Please enter the name of the file you wish to load: ").strip()
-        filename = f"{name}.json"
-        if os.path.exists(filename):
-            print("File Found!")
-            wheel.load(filename)
-        else: 
-            print("File Not Found.")
-        
-
-    elif choice == "7":
         print("Thank you for using Fortunate Roulette!")
         break
 
     else:
-        print("Invalid selection")
+        print("Invalid Option")
