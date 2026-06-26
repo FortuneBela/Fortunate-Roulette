@@ -11,6 +11,11 @@ class Wheel:
     def remove_section(self, index):
         return self.sections.pop(index)
     
+    def edit_section(self, index, new_name):
+        old_name = self.sections[index]
+        self.sections[index] = new_name
+        return old_name
+    
     def save(self, filename):
         with open(filename, "w") as file:
             json.dump(self.sections, file)

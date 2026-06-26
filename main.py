@@ -1,4 +1,3 @@
-
 from pathlib import Path
 from wheel import Wheel
 
@@ -13,10 +12,11 @@ while True:
     print("\n-~= Fortunate Roulette =~-")
     print("1. Add Section")
     print("2. Remove Section")
-    print("3. View Current Roulette")
-    print("4. Spin Roulette")
-    print("5. Save/Load Roulette")
-    print("6. Exit")
+    print("3. Edit Section")
+    print("4. View Current Roulette")
+    print("5. Spin Roulette")
+    print("6. Save/Load Roulette")
+    print("7. Exit")
 
     choice = input("Choose An Option: ").strip()
 
@@ -54,8 +54,31 @@ while True:
         else:
             print("~Your Current Roulette~")
             wheel.display(numbered=True)
+            edit_choice = input("\nPlease input section to edit: ").strip()
+            if not edit_choice.isdigit():
+                print("Please enter a number instead.")
+            else:
+                edit_choice = int(edit_choice)
+                index = edit_choice - 1
+
+                if index < 0 or index >= len(wheel.sections):
+                    print("Invalid Input")
+                else:
+                    new_name = input("\nPlease enter a new name: ").strip()
+                    if not new_name:
+                        print("The new name cannot be empty.")
+                    else:
+                        old_name = wheel.edit_section(index, new_name)
+                        print(f"'{old_name}' changed to '{new_name}'.")
 
     elif choice == "4":
+        if wheel.is_empty():
+            print("The Roulette is currently empty.")
+        else:
+            print("~Your Current Roulette~")
+            wheel.display(numbered=True)
+
+    elif choice == "5":
         result = wheel.spin()
 
         if result is None:
@@ -68,7 +91,7 @@ while True:
             print("Spinning...")
             print("Winner:", result)    
 
-    elif choice == "5":
+    elif choice == "6":
         print("\n-=Data Management=-")
         print("1. Save Current Roulette")
         print("2. Load A Saved Roulette")
@@ -117,7 +140,7 @@ while True:
         else:   
             print("Invalid Option")
 
-    elif choice == "6":
+    elif choice == "7":
         print("Thank you for using Fortunate Roulette!")
         break
 
