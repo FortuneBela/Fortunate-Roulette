@@ -1,6 +1,7 @@
 # Fortunate Roulette
 
-Fortunate Roulette is a customizable roulette wheel used for whatever you need it for! 
+Fortunate Roulette is a customizable roulette wheel used for whatever you need it for!
+
 Users can create their own list of possible results, spin the roulette, and save/load different custom roulettes.
 
 I am making Fortunate Roulette as a beginner practice project for Boot.dev!
@@ -61,7 +62,7 @@ python main.py
 The project includes a `.bat` launcher file. 
 You can double-click it from File Explorer to start the program.
 
-The batch file is named `Run Fortunate Roulette.bat`
+The batch file is named `Run Fortunate Roulette.bat`.
 
 ## How to Use
 
@@ -94,18 +95,8 @@ Saved Roulettes/dinner.json
 
 You can later load it from the Save/Load menu.
 
-## Planned Features
-
-Possible future improvements include:
-
-* Submenus for managing sections and saved files
-* Warning before overwriting an existing saved roulette
-* Delete saved roulettes
-* Spin history
-* Animated console spin effect
-* Weighted roulette sections
-* Graphical interface version
-
 ## Project Status
 
 This project is currently a work in progress as a beginner learning project.
+
+Thank you for your time!
