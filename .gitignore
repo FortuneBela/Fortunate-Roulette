@@ -1,2 +1,4 @@
 *.json
 ideas.txt
+__pycache__/
+*.pyc
