@@ -99,5 +99,5 @@ You can later load it from the Save/Load menu.
 
 This project is currently a work in progress as a beginner learning project.
 
-#Thank you for your time!
-#And have a thanks for all of your hard work!
+# Thank you for your time!
+# And thanks for all of your hard work!
